@@ -12,6 +12,9 @@ K = len(PI)
 print("Model orange centers (MU):")
 print(MU)
 
+# clear the file
+open('wc683_results.txt', 'w').close()
+
 def gaussian_pdf(x, mu, sigma):
     d = x.shape[1]
     # Adding 1e-2 to sigma makes the model more permissive for color matching
@@ -128,14 +131,15 @@ for filename in os.listdir(folder):
         # main_cone = max(regionprops(label_img), key=lambda x: x.area)
         minr, minc, maxr, maxc = main_cone.bbox
         cv2.rectangle(result_img, (minc, minr), (maxc, maxr), (0, 255, 0), 2)
-        print(f"height: {maxr - minr}, dist: {d}, filename: {filename}")
+        # print(f"height: {maxr - minr}, dist: {d}, filename: {filename}")
         # Draw base point
         cv2.circle(result_img, (int(x), int(y)), 5, (0, 0, 255), -1)
         # Show distance
         cv2.putText(result_img, f"{d:.2f}cm", (minc, minr-10), 
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
-    # print(f"Image:{filename}, Down:{y:.2f}, Right:{x:.2f}, Dist:{d:.2f}")
+    with open("wc683_results.txt", "a") as f:
+        f.write(f"Image:{filename}, Down:{y:.2f}, Right:{x:.2f}, Dist:{d:.2f}\n")
     
     # Show results
     cv2.imshow('Segmented Mask', mask)
