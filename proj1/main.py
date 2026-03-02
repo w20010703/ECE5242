@@ -139,7 +139,7 @@ for filename in os.listdir(folder):
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
     with open("wc683_results.txt", "a") as f:
-        f.write(f"Image:{filename}, Down:{y:.2f}, Right:{x:.2f}, Dist:{d:.2f}\n")
+        f.write(f"ImageName:{filename}, Down:{y:.2f}, Right:{x:.2f}, Distance:{d:.2f}\n")
     
     # Show results
     cv2.imshow('Segmented Mask', mask)
